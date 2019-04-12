@@ -10,11 +10,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,7 +20,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "t_order")
-public class Order {
+public class OrderEntity {
 
     @Id
     @GeneratedValue(generator = "guid-generator")
@@ -39,4 +37,11 @@ public class Order {
     private Date lastUpdatedDate;
 
     private Integer activeFlag;
+
+    private String buyId;
+    private String OrderNo;
+    private String buyerName;
+    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY)
+    List<OrderLineEntity> orderLineEntities;
+
 }
